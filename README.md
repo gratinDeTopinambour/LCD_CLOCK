@@ -1,18 +1,23 @@
-# Horloge LCD
+# ⏱️ LCD_CLOCK
 
-Projet **open-source complet** d'horloge LCD basé sur un microcontrôleur **STM32U083RC**. 
+Projet **open-source complet d'une horloge LCD basse consommation** basée sur un microcontrôleur **STM32U083RCT6**.
 
-Ce dépôt regroupe la totalité du projet :
-* 📐 **Conception 3D** : Boîtier modulaire pour impression 3D.
-* 🔌 **Électronique (V1 & V2)** : Fichiers KiCad, Gerbers, BOM, schémas PDF et modèles 3D.
-* 💻 **Firmware** : Code source C/C++ optimisé pour STM32 (projet STM32CubeIDE / CubeMX).
-* 📖 **Documentation** : Manuel utilisateur et fiches techniques (*datasheets*).
+Ce dépôt regroupe l'ensemble des éléments nécessaires à la réalisation du projet :
+
+- 📐 **Conception 3D** : boîtier et pièces mécaniques pour impression 3D.
+- 🔌 **Électronique** : schéma, PCB, BOM, Gerbers et documentation PDF.
+- 💻 **Firmware** : logiciel embarqué développé en C avec STM32CubeIDE / STM32CubeMX.
+- 🖥️ **Affichage LCD** : pilotage d'un afficheur LCD 4 digits directement depuis le STM32.
+- ⏰ **Gestion du temps** : utilisation du RTC et de l'oscillateur basse fréquence LSE.
+- 🔋 **Gestion de l'énergie** : utilisation des périphériques basse consommation et des modes STOP2.
+- 🌡️ **Mesures analogiques** : lecture de la température et de la tension batterie via l'ADC.
+- 📖 **Documentation** : fichiers techniques et documents nécessaires à la fabrication et au développement.
 
 ---
 
 ## 🖼️ Aperçu du projet
 
-| Boîtier complet |
+| Horloge LCD |
 | :---: |
 | ![Horloge LCD](pictures/20260919_160751.jpg) |
 | ![Horloge LCD](pictures/20260919_161016.jpg) |
@@ -22,48 +27,53 @@ Ce dépôt regroupe la totalité du projet :
 ## 📂 Structure du projet
 
 ```text
-Moisture-sensor/
-├── 3D_design/                            # Fichiers CAO pour impression 3D
-│   ├── moisture_sensor_capot.3mf         # Capot principal (3MF)
-│   ├── moisture_sensor_capot_ecran.stl   # Capot pour intégration d'un écran (STL)
-│   └── moisture_sensor_capot_pile.stl    # Trappe / compartiment pile (STL)
+LCD_CLOCK/
 │
-├── Electronics/                          # Fichiers de conception électronique
-│   ├── datasheet/                        # Documentation technique des composants
-│   ├── Moisture_sensorV1/                # Première révision
-│   └── Moisture_sensorV2/                # Révision V2 (Principale)
-│       ├── 3D_model/                     # Modèle 3D STEP du PCB complet
-│       ├── BOM/                          # Liste des composants (Bill of Materials)
-│       ├── gerber_file/                  # Fichiers Gerber pour la fabrication du PCB
-│       ├── KICAD/                        # Projet CAO KiCad (Schéma + PCB)
-│       └── pdf_version/                  # Schémas électroniques au format PDF
+├── 3D_design/                              # Conception mécanique
+│   ├── LCD_Clock_back.stl                  # Partie arrière du boîtier
+│   ├── LCD_Clock_button_lumiere.stl        # Bouton de commande de la lumière
+│   ├── LCD_Clock_button.stl                # Bouton de commande
+│   ├── LCD_Clock_capot.stl                 # Capot du boîtier
+│   ├── LCD_Clock_dessous.stl               # Partie inférieure du boîtier
+│   ├── LCD_Clock_face_avant.stl            # Face avant
+│   ├── LCD_Clock.3mf                       # Projet / modèle 3D complet
+│   └── LCD_Clock.step                      # Modèle CAO STEP
 │
-├── Program/                              # Firmware & Code source
-│   └── STM32U073CB/                      # Projet STM32CubeIDE / CubeMX
-│       ├── Core/                         # Code source applicatif (Inc, Src, Main)
-│       ├── Drivers/                      # Pilotes HAL et CMSIS STM32
-│       ├── Capacitive_Moisture_sensor.ioc# Configuration STM32CubeMX
-│       ├── Capacitive_Moisture_sensor Debug.launch # Config de débogage
-│       └── STM32U073CBTX_FLASH.ld        # Linker script Flash
+├── Electronics/                            # Conception électronique
+│   ├── BOM/                                # Bill of Materials
+│   ├── GERBER/                             # Fichiers de fabrication PCB
+│   ├── KICAD/                              # Projet KiCad
+│   └── PDF_version/                        # Documentation électronique PDF
 │
-├── pictures/                             # Visuels du projet
-│   ├── moisture_sensor.jpg
-│   └── populated_PCB.jpg
+├── pictures/                               # Photos du projet
+│   ├── 20260919_160751.jpg
+│   └── 20260919_161016.jpg
 │
-├── Moisture_sensor_User_Manual.pdf       # Manuel utilisateur complet (PDF)
-├── Moisture_sensor_User_Manual.odt       # Manuel utilisateur éditable (ODT)
-└── README.md                             # Documentation principale du dépôt
-```
+├── Program/                                # Firmware STM32
+│   ├── .settings/                          # Configuration STM32CubeIDE
+│   ├── Core/                               # Code applicatif et configuration
+│   ├── Drivers/                            # Drivers et bibliothèques
+│   ├── .cproject                           # Configuration du projet Eclipse
+│   ├── .mxproject                          # Configuration STM32CubeMX
+│   ├── .project                             # Projet STM32CubeIDE
+│   ├── LCD_CLOCK Debug.launch              # Configuration de débogage
+│   ├── LCD_CLOCK.ioc                       # Configuration STM32CubeMX
+│   └── STM32U083RCTX_FLASH.ld              # Script d'édition des liens
+│
+├── README.md                               # Documentation principale
+└── LICENSE                                 # Licence du projet
 
 ---
 
 ## ⚡ Caractéristiques techniques
 
-* **Microcontrôleur** : STM32U073CB (Ultra-low-power ARM Cortex-M0+).
-* **Technologie de mesure** : Capacitive (résistante à la corrosion par rapport aux capteurs résistifs).
-* **Conception PCB** : Développée sous **KiCad** (Version V2 disponible avec gerbers prêts à la fabrication).
-* **Alimentation** : Conçu pour fonctionner sur pile avec trappe d'accès rapide.
-* **Affichage (optionnel)** : Prise en charge d'un écran grâce au capot adapté.
+* **Microcontrôleur** : STM32U083RCT6 (Ultra-low-power ARM Cortex-M0+).
+* **Affichage** : LCD 4 digits piloté directement par le microcontrôleur.
+* **Gestion du temps** : RTC avec oscillateur basse fréquence LSE.
+* **Basse consommation** : Utilisation des périphériques RTC/LPTIM et du mode STOP2.
+* **Mesures** : Température et tension batterie mesurées par l'ADC.
+* **Conception PCB** : Développée sous **KiCad**, avec fichiers Gerber et BOM disponibles.
+* **Alimentation** : Conçu pour fonctionner sur batterie.
 
 ---
 
@@ -73,41 +83,49 @@ Les pièces sont situées dans le dossier `3D_design/`.
 
 | Pièce | Format | Description |
 | :--- | :--- | :--- |
-| `moisture_sensor_capot.3mf` | `.3mf` | Capot plein standard |
-| `moisture_sensor_capot_ecran.stl` | `.stl` | Capot découpé pour intégrer un écran |
-| `moisture_sensor_capot_pile.stl` | `.stl` | Logement pour le compartiment d'alimentation |
+| `LCD_Clock.3mf` | `.3mf` | Modèle 3D du boîtier |
+| `LCD_Clock.step` | `.step` | Modèle CAO du boîtier |
+| `LCD_Clock_capot.stl` | `.stl` | Capot du boîtier |
+| `LCD_Clock_face_avant.stl` | `.stl` | Face avant |
+| `LCD_Clock_back.stl` | `.stl` | Partie arrière |
+| `LCD_Clock_dessous.stl` | `.stl` | Partie inférieure |
+| `LCD_Clock_button.stl` | `.stl` | Bouton de commande |
+| `LCD_Clock_button_lumiere.stl` | `.stl` | Bouton de commande de la lumière |
 
 ---
 
 ## 💻 Firmware & Développement
 
-Le code source réside dans `Program/STM32U073CB/`.
+Le code source réside dans `Program/`.
 
 ### Prérequis
+
 * [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) (version récente)
 * Sonde de programmation (ST-Link V2 / V3)
 
 ### Compilation et Flash
+
 1. Ouvrez **STM32CubeIDE**.
-2. Importez le projet à partir de `Program/STM32U073CB`.
-3. Si vous souhaitez modifier la configuration des broches ou des périphériques, ouvrez le fichier `Capacitive_Moisture_sensor.ioc` avec STM32CubeMX.
-4. Compilez (`Build Project`) puis flashez sur le microcontrôleur via la configuration de débogage incluse (`Capacitive_Moisture_sensor Debug.launch`).
+2. Importez le projet à partir de `Program/`.
+3. Si vous souhaitez modifier la configuration des périphériques, ouvrez le fichier `LCD_CLOCK.ioc`.
+4. Compilez (`Build Project`) puis flashez le microcontrôleur via la configuration de débogage incluse (`LCD_CLOCK Debug.launch`).
 
 ---
 
-## 🏭 Fabrication du PCB (Hardware V2)
+## 🏭 Fabrication du PCB
 
-Pour faire fabriquer la carte électronique V2 :
-1. Les fichiers prêts pour l'usine (JLCPCB, PCBWay, etc.) se trouvent dans `Electronics/Moisture_sensorV2/gerber_file/`.
-2. La liste des composants nécessaires pour le brasage est disponible dans `Electronics/Moisture_sensorV2/BOM/`.
-3. Les schémas de principe sont lisibles via KiCad ou directement dans `Electronics/Moisture_sensorV2/pdf_version/`.
+Pour faire fabriquer la carte électronique :
+
+1. Les fichiers prêts pour la fabrication se trouvent dans `Electronics/GERBER/`.
+2. La liste des composants nécessaires est disponible dans `Electronics/BOM/`.
+3. Les fichiers de conception sont disponibles dans `Electronics/KICAD/`.
+4. Les schémas et documents sont disponibles dans `Electronics/PDF_version/`.
 
 ---
 
-## 📖 Manuel Utilisateur
+## 📖 Documentation
 
-Pour en savoir plus sur l'étalonnage, l'installation et l'utilisation quotidienne du capteur, référez-vous au document :
-📄 [Moisture_sensor_User_Manual.pdf](Moisture_sensor_User_Manual.pdf)
+La documentation technique du projet est disponible dans les dossiers `Electronics/PDF_version/` et `Program/`.
 
 ---
 
