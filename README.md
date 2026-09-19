@@ -12,9 +12,10 @@ Ce dépôt regroupe la totalité du projet :
 
 ## 🖼️ Aperçu du projet
 
-| Boîtier complet | PCB assemblé |
-| :---: | :---: |
-| ![Horloge LCD](pictures/20260919_161016.jpg) | ![vue 3D](Electronics/PDF_version/LCD_CLOCK.png) |
+| Boîtier complet |
+| :---: |
+| ![Horloge LCD](pictures/20260919_160751.jpg) |
+| ![Horloge LCD](pictures/20260919_161016.jpg) |
 
 ---
 
